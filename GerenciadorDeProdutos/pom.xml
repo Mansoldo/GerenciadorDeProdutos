@@ -9,6 +9,10 @@
         <developer>
             <id>Mansoldo</id>
             <name>Diego Mansoldo</name>
+        </developer>
+        <developer>
+            <id>lendary11</id>
+            <name>Everton Coutinho</name>
         </developer>            
     </developers>
     <properties>
