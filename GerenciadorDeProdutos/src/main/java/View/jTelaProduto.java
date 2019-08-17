@@ -25,6 +25,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     public jTelaProduto() {
         initComponents();
         formularioInativo();
+        //modificação
     }
 
     //método que inativa o formulário
