@@ -120,7 +120,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jComboStatus = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcomboCategoria = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jbtnNovo = new javax.swing.JButton();
         jbtSalvar = new javax.swing.JButton();
@@ -165,7 +165,7 @@ public class jTelaProduto extends javax.swing.JFrame {
 
         jLabel7.setText("Categoria:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jcomboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -179,7 +179,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                 .addGap(73, 73, 73)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcomboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -192,7 +192,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcomboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -364,7 +364,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
 
         //SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-        Date calendario = new Date();             
+        Date calendario = new Date();
         java.sql.Date data = new java.sql.Date(calendario.getTime());
 
         if (modoTela.equals("Salvar")) {
@@ -377,11 +377,13 @@ public class jTelaProduto extends javax.swing.JFrame {
                     Integer.parseInt(txtQuantidade.getText()),
                     validacaoStatus(),
                     data)) {
+                this.loadTable();
+                JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
+                formularioInativo();
+                //adicionar método para limpar o formulário
+            } else {
+                JOptionPane.showMessageDialog(this, "Produto não cadastrado!");
             }
-            this.loadTable();
-            JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
-            formularioInativo();
-            //adicionar método para limpar o formulário
 
         } else {
             //lógica de edição
@@ -434,7 +436,6 @@ public class jTelaProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -454,6 +455,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     private javax.swing.JButton jbtLimpar;
     private javax.swing.JButton jbtSalvar;
     private javax.swing.JButton jbtnNovo;
+    private javax.swing.JComboBox<String> jcomboCategoria;
     private javax.swing.JTable jtableProduto;
     private javax.swing.JTextField txtCompra;
     private javax.swing.JTextField txtDescricao;
