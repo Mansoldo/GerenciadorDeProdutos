@@ -62,6 +62,24 @@ public class jTelaProduto extends javax.swing.JFrame {
         }
     }
 
+    public ArrayList<Integer> validacaoCheck() {
+
+        ArrayList<Integer> lista = new ArrayList<>();
+
+        if (checkBox1.isSelected()) {
+            lista.add(1);
+        } if (checkBox2.isSelected()) {
+            lista.add(2);
+        } if (checkBox3.isSelected()) {
+            lista.add(3);
+        } if (checkBox4.isSelected()) {
+            lista.add(4);
+        } if (checkBox5.isSelected()) {
+            lista.add(5);
+        } 
+        return lista;
+    }
+
     //método para carregar os dados na tabela
     public void loadTable() {
 
@@ -121,7 +139,11 @@ public class jTelaProduto extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jComboStatus = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jcomboCategoria = new javax.swing.JComboBox<>();
+        checkBox1 = new javax.swing.JCheckBox();
+        checkBox2 = new javax.swing.JCheckBox();
+        checkBox3 = new javax.swing.JCheckBox();
+        checkBox4 = new javax.swing.JCheckBox();
+        checkBox5 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jbtnNovo = new javax.swing.JButton();
         jbtSalvar = new javax.swing.JButton();
@@ -166,7 +188,15 @@ public class jTelaProduto extends javax.swing.JFrame {
 
         jLabel7.setText("Categoria:");
 
-        jcomboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
+        checkBox1.setText("Categoria 1");
+
+        checkBox2.setText("Categoria 2");
+
+        checkBox3.setText("Categoria 3");
+
+        checkBox4.setText("Categoria 4");
+
+        checkBox5.setText("Categoria 5");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -177,10 +207,20 @@ public class jTelaProduto extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(73, 73, 73)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jcomboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(checkBox1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBox3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBox5))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(checkBox2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBox4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -189,11 +229,15 @@ public class jTelaProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(checkBox1)
+                    .addComponent(checkBox3)
+                    .addComponent(checkBox5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcomboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkBox2)
+                    .addComponent(checkBox4))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -367,6 +411,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         //SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
         Date calendario = new Date();
         java.sql.Date data = new java.sql.Date(calendario.getTime());
+        ArrayList<Integer> lista = new ArrayList<>();
 
         if (modoTela.equals("Salvar")) {
 
@@ -378,10 +423,13 @@ public class jTelaProduto extends javax.swing.JFrame {
                     Integer.parseInt(txtQuantidade.getText()),
                     validacaoStatus(),
                     data)) {
-                this.loadTable();                
-                ControllerCategoria.associarCategoria(jcomboCategoria.getSelectedIndex() + 1);
+                this.loadTable();
+                
+                if(validacaoCheck() != null){                     
+                    ControllerCategoria.associarCategoria(validacaoCheck());
+                }                
                 JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
-                formularioInativo();
+
                 //adicionar método para limpar o formulário
             } else {
                 JOptionPane.showMessageDialog(this, "Produto não cadastrado!");
@@ -438,6 +486,11 @@ public class jTelaProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBox1;
+    private javax.swing.JCheckBox checkBox2;
+    private javax.swing.JCheckBox checkBox3;
+    private javax.swing.JCheckBox checkBox4;
+    private javax.swing.JCheckBox checkBox5;
     private javax.swing.JComboBox<String> jComboStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -457,7 +510,6 @@ public class jTelaProduto extends javax.swing.JFrame {
     private javax.swing.JButton jbtLimpar;
     private javax.swing.JButton jbtSalvar;
     private javax.swing.JButton jbtnNovo;
-    private javax.swing.JComboBox<String> jcomboCategoria;
     private javax.swing.JTable jtableProduto;
     private javax.swing.JTextField txtCompra;
     private javax.swing.JTextField txtDescricao;
