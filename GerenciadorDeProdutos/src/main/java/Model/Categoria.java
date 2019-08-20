@@ -11,14 +11,16 @@ package Model;
  */
 public class Categoria {
     
+    private int id;
     private String nome;
     
-    public Categoria(){
-        
+    public Categoria(int id){
+        this.id = id;
     }
     
-    public Categoria (String nome){
+    public Categoria (String nome, int id){
         this.nome = nome;
+        this.id = id;
     }
     
     public void setNome(String nome){
@@ -27,6 +29,14 @@ public class Categoria {
     
     public String getNome(){
         return nome;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return id;
     }
     
 }

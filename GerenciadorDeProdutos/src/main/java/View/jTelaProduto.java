@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.ControllerCategoria;
 import Controller.ControllerProduto;
 import java.util.ArrayList;
 import java.util.Date;
@@ -165,7 +166,7 @@ public class jTelaProduto extends javax.swing.JFrame {
 
         jLabel7.setText("Categoria:");
 
-        jcomboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jcomboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -377,7 +378,8 @@ public class jTelaProduto extends javax.swing.JFrame {
                     Integer.parseInt(txtQuantidade.getText()),
                     validacaoStatus(),
                     data)) {
-                this.loadTable();
+                this.loadTable();                
+                ControllerCategoria.associarCategoria(jcomboCategoria.getSelectedIndex() + 1);
                 JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
                 formularioInativo();
                 //adicionar método para limpar o formulário
