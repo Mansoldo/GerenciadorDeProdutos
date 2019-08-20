@@ -7,7 +7,9 @@ package View;
 
 import Controller.ControllerCategoria;
 import Controller.ControllerProduto;
+import Controller.ControllerRelacaoProdutoCategoria;
 import Model.Produto;
+import Model.RelacaoProdutoCategoria;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     public jTelaProduto() {
         initComponents();
         formularioInativo();
+
         //modificação
     }
 
@@ -453,19 +456,36 @@ public class jTelaProduto extends javax.swing.JFrame {
 
             id.setIdEditar(Integer.parseInt(jtableProduto.getValueAt(numlinha, 0).toString()));
             int ID = id.getIdEditar();
-            
+
             ArrayList<Produto> editarProduto = ControllerProduto.getProdutoList();
+            ArrayList<RelacaoProdutoCategoria> Prod_Cate = ControllerRelacaoProdutoCategoria.getRelacao();
+
             for (Produto elementos : editarProduto) {
-                if(ID == elementos.getIdProduto()){
+
+                if (ID == elementos.getIdProduto()) {
                     txtNome.setText(String.valueOf(elementos.getNome()));
                     txtDescricao.setText(String.valueOf(elementos.getDescricao()));
                     txtCompra.setText(String.valueOf(elementos.getValorCompra()));
                     txtVenda.setText(String.valueOf(elementos.getValorVenda()));
                     txtQuantidade.setText(String.valueOf(elementos.getQuantidade()));
-                    
-                    
+
+                    for (RelacaoProdutoCategoria relacao : Prod_Cate) {
+                        if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 1) {
+                            checkBox1.setSelected(true);
+                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 2) {
+                            checkBox2.setSelected(true);
+                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 3) {
+                            checkBox3.setSelected(true);
+                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 4) {
+                            checkBox4.setSelected(true);
+                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 5) {
+                            checkBox5.setSelected(true);
+                        }
+
+                    }
                 }
             }
+
         } else {
             //Em caso de nenhuma linha selecionada para edição de produto
             JOptionPane.showMessageDialog(this, "Não há produto selecionado", "Falha ao editar", JOptionPane.ERROR_MESSAGE);
