@@ -7,6 +7,8 @@ package View;
 
 import Controller.ControllerCategoria;
 import Controller.ControllerProduto;
+import Model.Produto;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -68,15 +70,19 @@ public class jTelaProduto extends javax.swing.JFrame {
 
         if (checkBox1.isSelected()) {
             lista.add(1);
-        } if (checkBox2.isSelected()) {
+        }
+        if (checkBox2.isSelected()) {
             lista.add(2);
-        } if (checkBox3.isSelected()) {
+        }
+        if (checkBox3.isSelected()) {
             lista.add(3);
-        } if (checkBox4.isSelected()) {
+        }
+        if (checkBox4.isSelected()) {
             lista.add(4);
-        } if (checkBox5.isSelected()) {
+        }
+        if (checkBox5.isSelected()) {
             lista.add(5);
-        } 
+        }
         return lista;
     }
 
@@ -424,10 +430,10 @@ public class jTelaProduto extends javax.swing.JFrame {
                     validacaoStatus(),
                     data)) {
                 this.loadTable();
-                
-                if(validacaoCheck() != null){                     
+
+                if (validacaoCheck() != null) {
                     ControllerCategoria.associarCategoria(validacaoCheck());
-                }                
+                }
                 JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
 
                 //adicionar método para limpar o formulário
@@ -441,7 +447,29 @@ public class jTelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        // TODO add your handling code here:
+        if (jtableProduto.getSelectedRow() != -1) {
+            int numlinha = jtableProduto.getSelectedRow();
+            Produto id = new Produto();
+
+            id.setIdEditar(Integer.parseInt(jtableProduto.getValueAt(numlinha, 0).toString()));
+            int ID = id.getIdEditar();
+            
+            ArrayList<Produto> editarProduto = ControllerProduto.getProdutoList();
+            for (Produto elementos : editarProduto) {
+                if(ID == elementos.getIdProduto()){
+                    txtNome.setText(String.valueOf(elementos.getNome()));
+                    txtDescricao.setText(String.valueOf(elementos.getDescricao()));
+                    txtCompra.setText(String.valueOf(elementos.getValorCompra()));
+                    txtVenda.setText(String.valueOf(elementos.getValorVenda()));
+                    txtQuantidade.setText(String.valueOf(elementos.getQuantidade()));
+                    
+                    
+                }
+            }
+        } else {
+            //Em caso de nenhuma linha selecionada para edição de produto
+            JOptionPane.showMessageDialog(this, "Não há produto selecionado", "Falha ao editar", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed

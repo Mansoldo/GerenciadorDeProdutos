@@ -42,4 +42,10 @@ public class ControllerProduto {
         }
         return listaVazia;
     }
+    
+    public static ArrayList<Produto> getProdutoList() {
+        ArrayList<Produto> produtos = DAOProduto.getProdutos();
+        return produtos;
+    }
+    
 }
