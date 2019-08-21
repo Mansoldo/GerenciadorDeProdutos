@@ -30,10 +30,21 @@ public class jTelaProduto extends javax.swing.JFrame {
     public jTelaProduto() {
         initComponents();
         formularioInativo();
-
+        
         //modificação
     }
-
+    public void limparFormulario(){
+        txtNome.setText("");
+        txtDescricao.setText("");
+        txtCompra.setText("");
+        txtVenda.setText("");
+        txtQuantidade.setText("");
+        checkBox1.setSelected(false);
+        checkBox2.setSelected(false);
+        checkBox3.setSelected(false);
+        checkBox4.setSelected(false);
+        checkBox5.setSelected(false);
+    }
     //método que inativa o formulário
     public void formularioInativo() {
         txtNome.setEnabled(false);
@@ -447,6 +458,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         } else {
             //lógica de edição
         }
+        limparFormulario();
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
@@ -461,34 +473,38 @@ public class jTelaProduto extends javax.swing.JFrame {
             ArrayList<RelacaoProdutoCategoria> Prod_Cate = ControllerRelacaoProdutoCategoria.getRelacao();
 
             for (Produto elementos : editarProduto) {
-
                 if (ID == elementos.getIdProduto()) {
                     txtNome.setText(String.valueOf(elementos.getNome()));
                     txtDescricao.setText(String.valueOf(elementos.getDescricao()));
                     txtCompra.setText(String.valueOf(elementos.getValorCompra()));
                     txtVenda.setText(String.valueOf(elementos.getValorVenda()));
                     txtQuantidade.setText(String.valueOf(elementos.getQuantidade()));
-
-                    for (RelacaoProdutoCategoria relacao : Prod_Cate) {
-                        if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 1) {
-                            checkBox1.setSelected(true);
-                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 2) {
-                            checkBox2.setSelected(true);
-                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 3) {
-                            checkBox3.setSelected(true);
-                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 4) {
-                            checkBox4.setSelected(true);
-                        } else if (relacao.getIdProduto() == elementos.getIdProduto() && relacao.getIdCategoria() == 5) {
-                            checkBox5.setSelected(true);
-                        }
-
-                    }
                 }
             }
+            for (RelacaoProdutoCategoria relacao : Prod_Cate) {
+                        if (ID == relacao.getIdProduto()) {
+                            if (relacao.getIdCategoria() == 1) {
+                                checkBox1.setSelected(true);
+                            }
+                            if (relacao.getIdCategoria() == 2) {
+                                checkBox1.setSelected(true);
+                            }
+                            if (relacao.getIdCategoria() == 3) {
+                                checkBox1.setSelected(true);
+                            }
+                            if (relacao.getIdCategoria() == 4) {
+                                checkBox1.setSelected(true);
+                            }
+                            if (relacao.getIdCategoria() == 5) {
+                                checkBox1.setSelected(true);
+                            }
+                        }
+                    }
 
         } else {
             //Em caso de nenhuma linha selecionada para edição de produto
             JOptionPane.showMessageDialog(this, "Não há produto selecionado", "Falha ao editar", JOptionPane.ERROR_MESSAGE);
+            limparFormulario();
         }
     }//GEN-LAST:event_jbtEditarActionPerformed
 
@@ -497,7 +513,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLimparActionPerformed
-        // TODO add your handling code here:
+       limparFormulario();
     }//GEN-LAST:event_jbtLimparActionPerformed
 
     /**
