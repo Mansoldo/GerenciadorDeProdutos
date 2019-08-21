@@ -10,7 +10,6 @@ import Controller.ControllerProduto;
 import Controller.ControllerRelacaoProdutoCategoria;
 import Model.Produto;
 import Model.RelacaoProdutoCategoria;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -30,10 +29,11 @@ public class jTelaProduto extends javax.swing.JFrame {
     public jTelaProduto() {
         initComponents();
         formularioInativo();
-        
+
         //modificação
     }
-    public void limparFormulario(){
+
+    public void limparFormulario() {
         txtNome.setText("");
         txtDescricao.setText("");
         txtCompra.setText("");
@@ -45,6 +45,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         checkBox4.setSelected(false);
         checkBox5.setSelected(false);
     }
+
     //método que inativa o formulário
     public void formularioInativo() {
         txtNome.setEnabled(false);
@@ -456,18 +457,32 @@ public class jTelaProduto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Produto não cadastrado!");
             }
 
-        } else {
-            //lógica de edição
+        } else if (modoTela.equals("Edicao")) {
+            int numlinha = jtableProduto.getSelectedRow();
+            Produto id = new Produto();
+            id.setIdEditar(Integer.parseInt(jtableProduto.getValueAt(numlinha, 0).toString()));
+            int ID = id.getIdEditar();
+            
+            if (ControllerProduto.controllerEditarProduto(ID,
+                    txtNome.getText(),
+                    txtDescricao.getText(),
+                    Double.parseDouble(txtCompra.getText()),
+                    Double.parseDouble(txtVenda.getText()),
+                    Integer.parseInt(txtQuantidade.getText()),
+                    validacaoStatus())) {
+
+            }
         }
         limparFormulario();
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
         limparFormulario();
+        ArrayList<Integer> lista = new ArrayList<>();
+        modoTela = "Edicao";
         if (jtableProduto.getSelectedRow() != -1) {
             int numlinha = jtableProduto.getSelectedRow();
             Produto id = new Produto();
-
             id.setIdEditar(Integer.parseInt(jtableProduto.getValueAt(numlinha, 0).toString()));
             int ID = id.getIdEditar();
 
@@ -481,39 +496,41 @@ public class jTelaProduto extends javax.swing.JFrame {
                     txtCompra.setText(String.valueOf(elementos.getValorCompra()));
                     txtVenda.setText(String.valueOf(elementos.getValorVenda()));
                     txtQuantidade.setText(String.valueOf(elementos.getQuantidade()));
-                    if(elementos.getStatus()==1){
+                    if (elementos.getStatus() == 1) {
                         jComboStatus.setSelectedIndex(0);
-                    }else{
+                    } else {
                         jComboStatus.setSelectedIndex(1);
                     }
-                    
+
                 }
             }
             for (RelacaoProdutoCategoria relacao : Prod_Cate) {
-                        if (ID == relacao.getIdProduto()) {
-                            if (relacao.getIdCategoria() == 1) {
-                                checkBox1.setSelected(true);
-                            }
-                            if (relacao.getIdCategoria() == 2) {
-                                checkBox2.setSelected(true);
-                            }
-                            if (relacao.getIdCategoria() == 3) {
-                                checkBox3.setSelected(true);
-                            }
-                            if (relacao.getIdCategoria() == 4) {
-                                checkBox4.setSelected(true);
-                            }
-                            if (relacao.getIdCategoria() == 5) {
-                                checkBox5.setSelected(true);
-                            }
-                        }
+                if (ID == relacao.getIdProduto()) {
+                    if (relacao.getIdCategoria() == 1) {
+                        checkBox1.setSelected(true);
                     }
+                    if (relacao.getIdCategoria() == 2) {
+                        checkBox2.setSelected(true);
+                    }
+                    if (relacao.getIdCategoria() == 3) {
+                        checkBox3.setSelected(true);
+                    }
+                    if (relacao.getIdCategoria() == 4) {
+                        checkBox4.setSelected(true);
+                    }
+                    if (relacao.getIdCategoria() == 5) {
+                        checkBox5.setSelected(true);
+                    }
+                }
+            }
 
         } else {
             //Em caso de nenhuma linha selecionada para edição de produto
             JOptionPane.showMessageDialog(this, "Não há produto selecionado", "Falha ao editar", JOptionPane.ERROR_MESSAGE);
             limparFormulario();
         }
+
+
     }//GEN-LAST:event_jbtEditarActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
@@ -521,7 +538,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLimparActionPerformed
-       limparFormulario();
+        limparFormulario();
     }//GEN-LAST:event_jbtLimparActionPerformed
 
     /**
