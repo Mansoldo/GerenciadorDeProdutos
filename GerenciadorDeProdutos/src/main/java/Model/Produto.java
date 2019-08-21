@@ -17,6 +17,7 @@ public class Produto {
     private int quantidade;
     private int status;
     private Date dataCadastro;
+    private int idEditar;
     
     public Produto(){        
     }
@@ -104,4 +105,18 @@ public class Produto {
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }           
+
+    /**
+     * @return the idEditar
+     */
+    public int getIdEditar() {
+        return idEditar;
+    }
+
+    /**
+     * @param idEditar the idEditar to set
+     */
+    public void setIdEditar(int idEditar) {
+        this.idEditar = idEditar;
+    }
 }

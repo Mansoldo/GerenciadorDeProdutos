@@ -23,7 +23,7 @@ public class DAOProduto {
     private static Connection obterConexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/produtobd?useTimezone=true&serverTimezone=UTC", "root", "1234");
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/produtobd?useTimezone=true&serverTimezone=UTC", "root", "adminadmin");
         return conexao;
     }
 
@@ -88,6 +88,33 @@ public class DAOProduto {
         return lista;
     }
 
+    public static boolean daoEditarProduto(Produto p) {
+        boolean retorno = false;
+
+        try (Connection conexao = obterConexao()) {
+
+            PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE PRODUTOBD.PRODUTO\n"
+                    + "SET  NOME = ?, DESCRICAO= ?, PRECO_COMPRA= ?, PRECO_VENDA= ?, QUANTIDADE= ?, DISPONIVEL= ?\n"
+                    + "WHERE ID = ?");
+
+            comandoSQL.setString(1, p.getNome());
+            comandoSQL.setString(2, p.getDescricao());
+            comandoSQL.setDouble(3, p.getValorCompra());
+            comandoSQL.setDouble(4, p.getValorVenda());
+            comandoSQL.setInt(5, p.getQuantidade());
+            comandoSQL.setInt(6, p.getStatus());
+            comandoSQL.setInt(7, p.getIdProduto());
+
+            int linhaAfetada = comandoSQL.executeUpdate();
+
+            retorno = linhaAfetada > 0;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+            retorno = false;
+        }
+        return retorno;
+    }
     // Metódo que recebe como parametro o ID do produto e realiza a exclusão do bando de Dados
     public static boolean excluirDAOProduto(int ID) {
 
