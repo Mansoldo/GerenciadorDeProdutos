@@ -51,6 +51,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         txtQuantidade.setEnabled(true);
         jbtSalvar.setEnabled(true);
         jbtLimpar.setEnabled(true);
+
     }
 
     public int validacaoStatus() {
@@ -68,15 +69,19 @@ public class jTelaProduto extends javax.swing.JFrame {
 
         if (checkBox1.isSelected()) {
             lista.add(1);
-        } if (checkBox2.isSelected()) {
+        }
+        if (checkBox2.isSelected()) {
             lista.add(2);
-        } if (checkBox3.isSelected()) {
+        }
+        if (checkBox3.isSelected()) {
             lista.add(3);
-        } if (checkBox4.isSelected()) {
+        }
+        if (checkBox4.isSelected()) {
             lista.add(4);
-        } if (checkBox5.isSelected()) {
+        }
+        if (checkBox5.isSelected()) {
             lista.add(5);
-        } 
+        }
         return lista;
     }
 
@@ -424,10 +429,10 @@ public class jTelaProduto extends javax.swing.JFrame {
                     validacaoStatus(),
                     data)) {
                 this.loadTable();
-                
-                if(validacaoCheck() != null){                     
+
+                if (validacaoCheck() != null) {
                     ControllerCategoria.associarCategoria(validacaoCheck());
-                }                
+                }
                 JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
 
                 //adicionar método para limpar o formulário
@@ -446,6 +451,22 @@ public class jTelaProduto extends javax.swing.JFrame {
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
         // TODO add your handling code here:
+
+        if (jtableProduto.getSelectedRow() != -1) {
+            int numeroLinha = jtableProduto.getSelectedRow();
+            if (ControllerProduto.ExcluirProduto(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()))) {
+                DefaultTableModel Tabela = (DefaultTableModel) jtableProduto.getModel();
+                Tabela.removeRow(numeroLinha);
+                JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
+                loadTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi possível excluir!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Você não selecionou nenhum item!",
+                    "Erro de Exclusão", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jbtExcluirActionPerformed
 
     private void jbtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLimparActionPerformed
