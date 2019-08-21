@@ -424,6 +424,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     private void jbtnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNovoActionPerformed
         formularioAtivo();
         modoTela = "Salvar";
+        limparFormulario();
     }//GEN-LAST:event_jbtnNovoActionPerformed
 
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
@@ -462,6 +463,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
+        limparFormulario();
         if (jtableProduto.getSelectedRow() != -1) {
             int numlinha = jtableProduto.getSelectedRow();
             Produto id = new Produto();
@@ -479,6 +481,12 @@ public class jTelaProduto extends javax.swing.JFrame {
                     txtCompra.setText(String.valueOf(elementos.getValorCompra()));
                     txtVenda.setText(String.valueOf(elementos.getValorVenda()));
                     txtQuantidade.setText(String.valueOf(elementos.getQuantidade()));
+                    if(elementos.getStatus()==1){
+                        jComboStatus.setSelectedIndex(0);
+                    }else{
+                        jComboStatus.setSelectedIndex(1);
+                    }
+                    
                 }
             }
             for (RelacaoProdutoCategoria relacao : Prod_Cate) {
@@ -487,16 +495,16 @@ public class jTelaProduto extends javax.swing.JFrame {
                                 checkBox1.setSelected(true);
                             }
                             if (relacao.getIdCategoria() == 2) {
-                                checkBox1.setSelected(true);
+                                checkBox2.setSelected(true);
                             }
                             if (relacao.getIdCategoria() == 3) {
-                                checkBox1.setSelected(true);
+                                checkBox3.setSelected(true);
                             }
                             if (relacao.getIdCategoria() == 4) {
-                                checkBox1.setSelected(true);
+                                checkBox4.setSelected(true);
                             }
                             if (relacao.getIdCategoria() == 5) {
-                                checkBox1.setSelected(true);
+                                checkBox5.setSelected(true);
                             }
                         }
                     }
