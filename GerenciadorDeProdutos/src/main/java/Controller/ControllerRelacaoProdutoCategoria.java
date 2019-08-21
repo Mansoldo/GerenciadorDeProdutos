@@ -14,14 +14,13 @@ import java.util.ArrayList;
  * @author gabriel.rvital
  */
 public class ControllerRelacaoProdutoCategoria {
-    
-    public static ArrayList<RelacaoProdutoCategoria> getRelacao (){
-    ArrayList<RelacaoProdutoCategoria> relacao = DAORelacaoProdutoCategoria.getRelacaoProdutoCategoria();
-    return relacao;
+
+    public static ArrayList<RelacaoProdutoCategoria> getRelacao() {
+        return DAORelacaoProdutoCategoria.getRelacaoProdutoCategoria();
     }
-    
-    public static boolean excluirRelacao(int ID){
+
+    public static boolean excluirRelacao(int ID) {
         return DAORelacaoProdutoCategoria.excluirRelacao(ID);
     }
-    
+
 }
