@@ -23,7 +23,7 @@ public class DAOProduto {
     private static Connection obterConexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/produtobd?useTimezone=true&serverTimezone=UTC", "root", "mansoldo");
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/produtobd?useTimezone=true&serverTimezone=UTC", "root", "adminadmin");
         return conexao;
     }
 
