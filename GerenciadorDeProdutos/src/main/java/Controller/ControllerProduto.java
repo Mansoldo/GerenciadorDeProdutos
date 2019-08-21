@@ -42,11 +42,17 @@ public class ControllerProduto {
         }
         return listaVazia;
     }
-    
+
     public static ArrayList<Produto> getProdutoList() {
         ArrayList<Produto> produtos = DAOProduto.getProdutos();
         return produtos;
     }
-    
-    
+
+    public static boolean controllerEditarProduto(int ID, String nome, String descricao, double valorCompra, double valorVenda,
+            int quantidade, int status) {
+        
+        Produto produto = new Produto(ID ,nome, descricao, valorCompra, valorVenda, quantidade, status);
+         return DAOProduto.daoEditarProduto(produto);
+    }
+
 }

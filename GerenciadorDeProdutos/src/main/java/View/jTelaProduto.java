@@ -29,7 +29,6 @@ public class jTelaProduto extends javax.swing.JFrame {
     public jTelaProduto() {
         initComponents();
         formularioInativo();
-
         //modificação
     }
 
@@ -462,7 +461,7 @@ public class jTelaProduto extends javax.swing.JFrame {
             Produto id = new Produto();
             id.setIdEditar(Integer.parseInt(jtableProduto.getValueAt(numlinha, 0).toString()));
             int ID = id.getIdEditar();
-            
+
             if (ControllerProduto.controllerEditarProduto(ID,
                     txtNome.getText(),
                     txtDescricao.getText(),
@@ -470,7 +469,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                     Double.parseDouble(txtVenda.getText()),
                     Integer.parseInt(txtQuantidade.getText()),
                     validacaoStatus())) {
-
+                this.loadTable();
             }
         }
         limparFormulario();
