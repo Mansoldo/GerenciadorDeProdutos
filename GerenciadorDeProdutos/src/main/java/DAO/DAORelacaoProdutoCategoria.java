@@ -24,14 +24,15 @@ import java.util.ArrayList;
  * @author gabriel.rvital
  */
 public class DAORelacaoProdutoCategoria {
+
     private static Connection obterConexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/produtobd?useTimezone=true&serverTimezone=UTC", "root", "adminadmin");
         return conexao;
     }
-    
-    public static ArrayList<RelacaoProdutoCategoria> getRelacaoProdutoCategoria (){
+
+    public static ArrayList<RelacaoProdutoCategoria> getRelacaoProdutoCategoria() {
         ArrayList<RelacaoProdutoCategoria> lista = new ArrayList<>();
         try (Connection conexao = obterConexao()) {
 
@@ -54,7 +55,24 @@ public class DAORelacaoProdutoCategoria {
         }
         return lista;
     }
+
+    public static boolean excluirRelacao(int ID) {
+
+        boolean retorno = false;
+
+        try (Connection conexao = obterConexao()) {
+
+            PreparedStatement comandoSQL = conexao.prepareStatement("DELETE FROM PRODUTO_CATEGORIA WHERE ID_PRODUTO = ?");
+
+            comandoSQL.setInt(1, ID);
+
+            int linha = comandoSQL.executeUpdate();
+
+            retorno = linha > 0;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        return retorno;
     }
-
-
-
+}

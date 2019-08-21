@@ -537,8 +537,19 @@ public class jTelaProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (jtableProduto.getSelectedRow() != -1) {
+            
             int numeroLinha = jtableProduto.getSelectedRow();
-            if (ControllerProduto.ExcluirProduto(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()))) {
+            
+            ArrayList<RelacaoProdutoCategoria> listaRelacao = ControllerRelacaoProdutoCategoria.getRelacao();
+                        
+            for(RelacaoProdutoCategoria lista : listaRelacao){
+                
+                if(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()) == lista.getIdProduto()){
+                    ControllerRelacaoProdutoCategoria.excluirRelacao(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()));                    
+                }                
+            }
+            
+            if (ControllerProduto.ExcluirProduto(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()))) {                
                 DefaultTableModel Tabela = (DefaultTableModel) jtableProduto.getModel();
                 Tabela.removeRow(numeroLinha);
                 JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");

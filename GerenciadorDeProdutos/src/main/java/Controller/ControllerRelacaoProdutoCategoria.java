@@ -20,4 +20,8 @@ public class ControllerRelacaoProdutoCategoria {
     return relacao;
     }
     
+    public static boolean excluirRelacao(int ID){
+        return DAORelacaoProdutoCategoria.excluirRelacao(ID);
+    }
+    
 }
