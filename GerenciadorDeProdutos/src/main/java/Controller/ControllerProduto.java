@@ -42,10 +42,4 @@ public class ControllerProduto {
         }
         return listaVazia;
     }
-
-    //Informa o ID a ser excluído pelo comando SQL na DAOProduto
-    public static boolean ExcluirProduto(int ID) {
-        return DAOProduto.excluirDAOProduto(ID);
-    }
-
 }

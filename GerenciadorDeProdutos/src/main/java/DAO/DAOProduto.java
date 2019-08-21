@@ -23,7 +23,7 @@ public class DAOProduto {
     private static Connection obterConexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/produtobd?useTimezone=true&serverTimezone=UTC", "root", "1234");
+        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/produtobd?useTimezone=true&serverTimezone=UTC", "root", "adminadmin");
         return conexao;
     }
 
@@ -87,27 +87,4 @@ public class DAOProduto {
         }
         return lista;
     }
-
-    // Metódo que recebe como parametro o ID do produto e realiza a exclusão do bando de Dados
-    public static boolean excluirDAOProduto(int ID) {
-
-        boolean retorno = false;
-
-        try (Connection conexao = obterConexao()) {
-
-            PreparedStatement comandoSQL = conexao.prepareStatement("DELETE FROM PRODUTO WHERE ID = ?");
-
-            comandoSQL.setInt(1, ID);
-
-            int linha = comandoSQL.executeUpdate();
-
-            retorno = linha > 0;
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            ex.printStackTrace();
-        }
-        return retorno;
-
-    }
-
 }
