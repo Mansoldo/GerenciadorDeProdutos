@@ -94,7 +94,7 @@ public class DAOProduto {
         try (Connection conexao = obterConexao()) {
 
             PreparedStatement comandoSQL = conexao.prepareStatement("UPDATE PRODUTOBD.PRODUTO\n"
-                    + "SET  NOME = ?, DESCRICAO= ?, PRECO_COMPRA= ?, PRECO_VENDA= ?, QUANTIDADE= ?, DISPONIVEL= ?\n)"
+                    + "SET  NOME = ?, DESCRICAO= ?, PRECO_COMPRA= ?, PRECO_VENDA= ?, QUANTIDADE= ?, DISPONIVEL= ?\n"
                     + "WHERE ID = ?");
 
             comandoSQL.setString(1, p.getNome());
