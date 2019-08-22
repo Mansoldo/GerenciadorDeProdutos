@@ -160,11 +160,8 @@ public class jTelaProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         }
-       
            return true;
-
     }
-        
         
 
     public int validacaoStatus() {
@@ -313,6 +310,18 @@ public class jTelaProduto extends javax.swing.JFrame {
         txtCompra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCompraKeyTyped(evt);
+            }
+        });
+
+        txtVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtVendaKeyTyped(evt);
+            }
+        });
+
+        txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQuantidadeKeyTyped(evt);
             }
         });
 
@@ -683,30 +692,52 @@ public class jTelaProduto extends javax.swing.JFrame {
         limparFormulario();
     }//GEN-LAST:event_jbtLimparActionPerformed
 
+    
+    //Validacao dos tamanhos dos campos
     private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
         
         if(txtNome.getText().length() > 100){
             evt.consume();
-            JOptionPane.showMessageDialog(this, "Limite de caractere em 100", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Limite de caracter em 100", "Erro", JOptionPane.ERROR_MESSAGE);
             txtNome.setText("");
         }
-        
     }//GEN-LAST:event_txtNomeKeyTyped
 
     private void txtDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyTyped
         
-        if (txtDescricao.getText().length() > 100) {
+        if (txtDescricao.getText().length() > 1000) {
             evt.consume();
-            JOptionPane.showMessageDialog(this, "Limite de caractere em 100", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Limite de caracter em 1000", "Erro", JOptionPane.ERROR_MESSAGE);
             txtDescricao.setText("");
         }
     }//GEN-LAST:event_txtDescricaoKeyTyped
 
     private void txtCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompraKeyTyped
         
-        
-        
+        if (txtCompra.getText().length() > 11) {
+        evt.consume();
+        JOptionPane.showMessageDialog(this, "Limite de caracter em 11", "Erro", JOptionPane.ERROR_MESSAGE);
+        txtCompra.setText("");
+        }      
     }//GEN-LAST:event_txtCompraKeyTyped
+
+    private void txtVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVendaKeyTyped
+        
+        if(txtVenda.getText().length() > 11){
+        evt.consume();
+        JOptionPane.showMessageDialog(this, "Limite de caracter em 11", "Erro", JOptionPane.ERROR_MESSAGE);
+        txtVenda.setText("");
+        }
+        
+    }//GEN-LAST:event_txtVendaKeyTyped
+
+    private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
+        if (txtQuantidade.getText().length() > 10) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Limite de caractere em 10", "Erro", JOptionPane.ERROR_MESSAGE);
+            txtQuantidade.setText("");
+        }
+    }//GEN-LAST:event_txtQuantidadeKeyTyped
 
         
     
