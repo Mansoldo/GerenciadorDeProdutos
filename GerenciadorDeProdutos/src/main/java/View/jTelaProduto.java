@@ -70,62 +70,62 @@ public class jTelaProduto extends javax.swing.JFrame {
         jbtLimpar.setEnabled(true);
 
     }
-    
+
     //método que valida o formulário
-    public boolean validaFormulario(){
-        
-        if (this.txtNome.getText().equalsIgnoreCase("")){
+    public boolean validaFormulario() {
+
+        if (this.txtNome.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Campo Nome obrigatório.");
-        return false;
+            return false;
         }
-        if (this.txtDescricao.getText().equalsIgnoreCase("")){
+        if (this.txtDescricao.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Campo Descrição obrigatório.");
-        return false;
+            return false;
         }
-        if (this.txtCompra.getText().equalsIgnoreCase("")){
+        if (this.txtCompra.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Campo Preço de Compra obrigatório.");
-        return false;
+            return false;
         }
-        if (this.txtVenda.getText().equalsIgnoreCase("")){
+        if (this.txtVenda.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Campo Preço de Venda obrigatório.");
-        return false;
+            return false;
         }
-        if (this.txtQuantidade.getText().equalsIgnoreCase("")){
+        if (this.txtQuantidade.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Campo Quantidade obrigatório.");
-        return false;
+            return false;
         }
-        
-    return true;
+
+        return true;
     }
-    
-        private boolean validaNumero() {
+
+    private boolean validaNumero() {
         if (Integer.parseInt(txtQuantidade.getText()) < 0) {
             JOptionPane.showMessageDialog(this, "Campo Quantidade não permite valor negativo.");
             txtQuantidade.setText("");
             return false;
         }
-        
+
         if (Integer.parseInt(txtCompra.getText()) < 0) {
             JOptionPane.showMessageDialog(this, "Campo Valor de Compra não permite valor negativo.");
             txtCompra.setText("");
             return false;
         }
-        
-        if (Integer.parseInt(txtVenda.getText()) < 0){
+
+        if (Integer.parseInt(txtVenda.getText()) < 0) {
             JOptionPane.showMessageDialog(this, "Campo Valor de Compra não permite valor negativo.");
             txtVenda.setText("");
             return false;
         }
         return true;
     }
-        
-        //método que valida o formato do dado.
-        private boolean validaFormato(){
-        
+
+    //método que valida o formato do dado.
+    private boolean validaFormato() {
+
         try {
             if (!this.txtQuantidade.getText().equalsIgnoreCase("")) {
-                Integer.parseInt(txtQuantidade.getText()); 
-            }    
+                Integer.parseInt(txtQuantidade.getText());
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro na conversão dos dados no campo Quantidade", "Erro de Conversão", JOptionPane.ERROR_MESSAGE);
             txtQuantidade.setText("");
@@ -134,7 +134,7 @@ public class jTelaProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         }
-        
+
         try {
             if (!this.txtCompra.getText().equalsIgnoreCase("")) {
                 Double.parseDouble(txtCompra.getText());
@@ -147,22 +147,21 @@ public class jTelaProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         }
-        
-        try{
-            if (!this.txtVenda.getText().equalsIgnoreCase("")){
+
+        try {
+            if (!this.txtVenda.getText().equalsIgnoreCase("")) {
                 Double.parseDouble(txtVenda.getText());
             }
-        } catch (NumberFormatException e){
-           JOptionPane.showMessageDialog(null, "Ocorreu um erro na conversão dos dados no campo Valor de Venda", "Erro de Conversão", JOptionPane.ERROR_MESSAGE); 
-           txtVenda.setText("");
-           return false;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro na conversão dos dados no campo Valor de Venda", "Erro de Conversão", JOptionPane.ERROR_MESSAGE);
+            txtVenda.setText("");
+            return false;
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         }
-           return true;
+        return true;
     }
-        
 
     public int validacaoStatus() {
 
@@ -576,7 +575,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                     }
                     limparFormulario();
                     JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
-                    
+
                     //adicionar método para limpar o formulário
                 } else {
                     limparFormulario();
@@ -597,6 +596,12 @@ public class jTelaProduto extends javax.swing.JFrame {
                     Integer.parseInt(txtQuantidade.getText()),
                     validacaoStatus())) {
                 this.loadTable();
+                ControllerRelacaoProdutoCategoria.excluirRelacao(ID);
+                if (validacaoCheck() != null) {
+                    ControllerCategoria.associarCategoria(validacaoCheck());
+                }
+                limparFormulario();
+                    JOptionPane.showMessageDialog(this, "Produto Editado!");
             }
         }
     }//GEN-LAST:event_jbtSalvarActionPerformed
@@ -662,19 +667,19 @@ public class jTelaProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (jtableProduto.getSelectedRow() != -1) {
-            
+
             int numeroLinha = jtableProduto.getSelectedRow();
-            
+
             ArrayList<RelacaoProdutoCategoria> listaRelacao = ControllerRelacaoProdutoCategoria.getRelacao();
-                        
-            for(RelacaoProdutoCategoria lista : listaRelacao){
-                
-                if(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()) == lista.getIdProduto()){
-                    ControllerRelacaoProdutoCategoria.excluirRelacao(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()));                    
-                }                
+
+            for (RelacaoProdutoCategoria lista : listaRelacao) {
+
+                if (Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()) == lista.getIdProduto()) {
+                    ControllerRelacaoProdutoCategoria.excluirRelacao(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()));
+                }
             }
-            
-            if (ControllerProduto.ExcluirProduto(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()))) {                
+
+            if (ControllerProduto.ExcluirProduto(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()))) {
                 DefaultTableModel Tabela = (DefaultTableModel) jtableProduto.getModel();
                 Tabela.removeRow(numeroLinha);
                 JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
@@ -694,11 +699,10 @@ public class jTelaProduto extends javax.swing.JFrame {
         limparFormulario();
     }//GEN-LAST:event_jbtLimparActionPerformed
 
-    
     //Validacao dos tamanhos dos campos
     private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
-        
-        if(txtNome.getText().length() > 100){
+
+        if (txtNome.getText().length() > 100) {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Limite de caracter em 100", "Erro", JOptionPane.ERROR_MESSAGE);
             txtNome.setText("");
@@ -706,7 +710,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeKeyTyped
 
     private void txtDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyTyped
-        
+
         if (txtDescricao.getText().length() > 1000) {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Limite de caracter em 1000", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -715,22 +719,22 @@ public class jTelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescricaoKeyTyped
 
     private void txtCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompraKeyTyped
-        
+
         if (txtCompra.getText().length() > 11) {
-        evt.consume();
-        JOptionPane.showMessageDialog(this, "Limite de caracter em 11", "Erro", JOptionPane.ERROR_MESSAGE);
-        txtCompra.setText("");
-        }      
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Limite de caracter em 11", "Erro", JOptionPane.ERROR_MESSAGE);
+            txtCompra.setText("");
+        }
     }//GEN-LAST:event_txtCompraKeyTyped
 
     private void txtVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVendaKeyTyped
-        
-        if(txtVenda.getText().length() > 11){
-        evt.consume();
-        JOptionPane.showMessageDialog(this, "Limite de caracter em 11", "Erro", JOptionPane.ERROR_MESSAGE);
-        txtVenda.setText("");
+
+        if (txtVenda.getText().length() > 11) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Limite de caracter em 11", "Erro", JOptionPane.ERROR_MESSAGE);
+            txtVenda.setText("");
         }
-        
+
     }//GEN-LAST:event_txtVendaKeyTyped
 
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
@@ -741,9 +745,6 @@ public class jTelaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtQuantidadeKeyTyped
 
-        
-    
-    
     /**
      * @param args the command line arguments
      */
