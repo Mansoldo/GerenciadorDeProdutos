@@ -111,7 +111,7 @@ public class jTelaProduto extends javax.swing.JFrame {
             return false;
         }
         
-        if (Integer.parseInt(txtVenda.getText())< 0){
+        if (Integer.parseInt(txtVenda.getText()) < 0){
             JOptionPane.showMessageDialog(this, "Campo Valor de Compra não permite valor negativo.");
             txtVenda.setText("");
             return false;
@@ -560,27 +560,29 @@ public class jTelaProduto extends javax.swing.JFrame {
         ArrayList<Integer> lista = new ArrayList<>();
 
         if (modoTela.equals("Salvar")) {
+            if (validaFormulario() && validaFormato() && validaNumero()) {
+                if (ControllerProduto.salvarProduto(
+                        txtNome.getText(),
+                        txtDescricao.getText(),
+                        Double.parseDouble(this.txtCompra.getText()),
+                        Double.parseDouble(this.txtVenda.getText()),
+                        Integer.parseInt(this.txtQuantidade.getText()),
+                        validacaoStatus(),
+                        data)) {
+                    this.loadTable();
 
-            if (ControllerProduto.salvarProduto(
-                    txtNome.getText(),
-                    txtDescricao.getText(),
-                    Double.parseDouble(txtCompra.getText()),
-                    Double.parseDouble(txtVenda.getText()),
-                    Integer.parseInt(txtQuantidade.getText()),
-                    validacaoStatus(),
-                    data)) {
-                this.loadTable();
-
-                if (validacaoCheck() != null) {
-                    ControllerCategoria.associarCategoria(validacaoCheck());
+                    if (validacaoCheck() != null) {
+                        ControllerCategoria.associarCategoria(validacaoCheck());
+                    }
+                    limparFormulario();
+                    JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
+                    
+                    //adicionar método para limpar o formulário
+                } else {
+                    limparFormulario();
+                    JOptionPane.showMessageDialog(this, "Produto não cadastrado!");
                 }
-                JOptionPane.showMessageDialog(this, "Produto Cadastrado!");
-
-                //adicionar método para limpar o formulário
-            } else {
-                JOptionPane.showMessageDialog(this, "Produto não cadastrado!");
             }
-
         } else if (modoTela.equals("Edicao")) {
             int numlinha = jtableProduto.getSelectedRow();
             Produto id = new Produto();
@@ -597,7 +599,6 @@ public class jTelaProduto extends javax.swing.JFrame {
                 this.loadTable();
             }
         }
-        limparFormulario();
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
@@ -678,6 +679,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                 Tabela.removeRow(numeroLinha);
                 JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
                 loadTable();
+                limparFormulario();
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi possível excluir!");
             }
