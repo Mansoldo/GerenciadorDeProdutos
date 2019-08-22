@@ -10,6 +10,7 @@ import Controller.ControllerProduto;
 import Controller.ControllerRelacaoProdutoCategoria;
 import Model.Produto;
 import Model.RelacaoProdutoCategoria;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -59,7 +60,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     }
 
     //método que ativa o formulário
-    public void formularioAtivo() {
+    private void formularioAtivo() {
         txtNome.setEnabled(true);
         txtDescricao.setEnabled(true);
         txtCompra.setEnabled(true);
@@ -69,6 +70,102 @@ public class jTelaProduto extends javax.swing.JFrame {
         jbtLimpar.setEnabled(true);
 
     }
+    
+    //método que valida o formulário
+    public boolean validaFormulario(){
+        
+        if (this.txtNome.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(this, "Campo Nome obrigatório.");
+        return false;
+        }
+        if (this.txtDescricao.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(this, "Campo Descrição obrigatório.");
+        return false;
+        }
+        if (this.txtCompra.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(this, "Campo Preço de Compra obrigatório.");
+        return false;
+        }
+        if (this.txtVenda.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(this, "Campo Preço de Venda obrigatório.");
+        return false;
+        }
+        if (this.txtQuantidade.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(this, "Campo Quantidade obrigatório.");
+        return false;
+        }
+        
+    return true;
+    }
+    
+        private boolean validaNumero() {
+        if (Integer.parseInt(txtQuantidade.getText()) < 0) {
+            JOptionPane.showMessageDialog(this, "Campo Quantidade não permite valor negativo.");
+            txtQuantidade.setText("");
+            return false;
+        }
+        
+        if (Integer.parseInt(txtCompra.getText()) < 0) {
+            JOptionPane.showMessageDialog(this, "Campo Valor de Compra não permite valor negativo.");
+            txtCompra.setText("");
+            return false;
+        }
+        
+        if (Integer.parseInt(txtVenda.getText())< 0){
+            JOptionPane.showMessageDialog(this, "Campo Valor de Compra não permite valor negativo.");
+            txtVenda.setText("");
+            return false;
+        }
+        return true;
+    }
+        
+        //método que valida o formato do dado.
+        private boolean validaFormato(){
+        
+        try {
+            if (!this.txtQuantidade.getText().equalsIgnoreCase("")) {
+                Integer.parseInt(txtQuantidade.getText()); 
+            }    
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro na conversão dos dados no campo Quantidade", "Erro de Conversão", JOptionPane.ERROR_MESSAGE);
+            txtQuantidade.setText("");
+            return false;
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        }
+        
+        try {
+            if (!this.txtCompra.getText().equalsIgnoreCase("")) {
+                Double.parseDouble(txtCompra.getText());
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro na conversão dos dados no campo Valor de Compra", "Erro de Conversão", JOptionPane.ERROR_MESSAGE);
+            txtCompra.setText("");
+            return false;
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        }
+        
+        try{
+            if (!this.txtVenda.getText().equalsIgnoreCase("")){
+                Double.parseDouble(txtVenda.getText());
+            }
+        } catch (NumberFormatException e){
+           JOptionPane.showMessageDialog(null, "Ocorreu um erro na conversão dos dados no campo Valor de Venda", "Erro de Conversão", JOptionPane.ERROR_MESSAGE); 
+           txtVenda.setText("");
+           return false;
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        }
+       
+           return true;
+
+    }
+        
+        
 
     public int validacaoStatus() {
 
@@ -201,6 +298,24 @@ public class jTelaProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Quantidade: ");
 
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
+            }
+        });
+
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescricaoKeyTyped(evt);
+            }
+        });
+
+        txtCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCompraKeyTyped(evt);
+            }
+        });
+
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel6.setText("Status Produto:");
@@ -259,7 +374,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                     .addComponent(jComboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBox2)
                     .addComponent(checkBox4))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -568,6 +683,34 @@ public class jTelaProduto extends javax.swing.JFrame {
         limparFormulario();
     }//GEN-LAST:event_jbtLimparActionPerformed
 
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+        
+        if(txtNome.getText().length() > 100){
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Limite de caractere em 100", "Erro", JOptionPane.ERROR_MESSAGE);
+            txtNome.setText("");
+        }
+        
+    }//GEN-LAST:event_txtNomeKeyTyped
+
+    private void txtDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyTyped
+        
+        if (txtDescricao.getText().length() > 100) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Limite de caractere em 100", "Erro", JOptionPane.ERROR_MESSAGE);
+            txtDescricao.setText("");
+        }
+    }//GEN-LAST:event_txtDescricaoKeyTyped
+
+    private void txtCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompraKeyTyped
+        
+        
+        
+    }//GEN-LAST:event_txtCompraKeyTyped
+
+        
+    
+    
     /**
      * @param args the command line arguments
      */
