@@ -601,7 +601,8 @@ public class jTelaProduto extends javax.swing.JFrame {
                     ControllerCategoria.associarCategoria(validacaoCheck());
                 }
                 limparFormulario();
-                    JOptionPane.showMessageDialog(this, "Produto Editado!");
+                JOptionPane.showMessageDialog(this, "Produto Editado!");
+                modoTela = "Salvar";
             }
         }
     }//GEN-LAST:event_jbtSalvarActionPerformed
@@ -705,6 +706,11 @@ public class jTelaProduto extends javax.swing.JFrame {
         if (txtNome.getText().length() > 100) {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Limite de caracter em 100", "Erro", JOptionPane.ERROR_MESSAGE);
+            txtNome.setText("");
+        }
+        if (txtNome.getText().matches("^[0-9].*")) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Caractere invalido", "Erro", JOptionPane.ERROR_MESSAGE);
             txtNome.setText("");
         }
     }//GEN-LAST:event_txtNomeKeyTyped
