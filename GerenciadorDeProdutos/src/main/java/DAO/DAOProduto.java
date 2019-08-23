@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 public class DAOProduto {
 
+    //Método para obter conexão
     private static Connection obterConexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,6 +28,7 @@ public class DAOProduto {
         return conexao;
     }
 
+    //Método para salvar produto
     public static boolean salvarDAOProduto(Produto produto) {
 
         boolean retorno = false;
@@ -56,6 +58,7 @@ public class DAOProduto {
         return retorno;
     }
 
+    //Método para pegar produtos
     public static ArrayList<Produto> getProdutos() {
 
         ArrayList<Produto> lista = new ArrayList<>();
@@ -88,6 +91,7 @@ public class DAOProduto {
         return lista;
     }
 
+    //Método para editar produtos
     public static boolean daoEditarProduto(Produto p) {
         boolean retorno = false;
 

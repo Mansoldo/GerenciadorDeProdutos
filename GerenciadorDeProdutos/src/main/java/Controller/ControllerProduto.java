@@ -16,12 +16,14 @@ import java.util.Date;
  */
 public class ControllerProduto {
 
+    //Método que recebe os dados para salvar um produto
     public static boolean salvarProduto(String nome, String descricao, double valorCompra, double valorVenda,
             int quantidade, int status, Date dataCadastro) {
         Produto produto = new Produto(nome, descricao, valorCompra, valorVenda, quantidade, status, dataCadastro);
         return DAOProduto.salvarDAOProduto(produto);
     }
 
+    //Método que retorna um Array de String dos produtos para popular tabela
     public static ArrayList<String[]> getProdutos() {
 
         ArrayList<Produto> produtos = DAOProduto.getProdutos();
@@ -43,11 +45,13 @@ public class ControllerProduto {
         return listaVazia;
     }
 
+    //Método que recebe a lista de Produtos
     public static ArrayList<Produto> getProdutoList() {
         ArrayList<Produto> produtos = DAOProduto.getProdutos();
         return produtos;
     }
 
+    //Método que recebe os dados de produto para Editar
     public static boolean controllerEditarProduto(int ID, String nome, String descricao, double valorCompra, double valorVenda,
             int quantidade, int status) {
         

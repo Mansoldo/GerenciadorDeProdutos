@@ -15,10 +15,12 @@ import java.util.ArrayList;
  */
 public class ControllerRelacaoProdutoCategoria {
 
+    //Método para obter a relação de Categoria com Produto
     public static ArrayList<RelacaoProdutoCategoria> getRelacao() {
         return DAORelacaoProdutoCategoria.getRelacaoProdutoCategoria();
     }
 
+    //Método que efetuar a exclusão da relação no banco
     public static boolean excluirRelacao(int ID) {
         return DAORelacaoProdutoCategoria.excluirRelacao(ID);
     }

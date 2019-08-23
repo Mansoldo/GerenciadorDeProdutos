@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class DAOCategoria {
 
+    //Método para obter conexão
     private static Connection obterConexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -17,6 +18,7 @@ public class DAOCategoria {
         return conexao;
     }
 
+    //Método para obter o ID do produto
     public static int getIdProduto() {
 
         int id_produto = 0;
@@ -40,6 +42,7 @@ public class DAOCategoria {
         return id_produto;
     }
 
+    //Método para associar Categoria do produto
     public static void associarCategoria(Categoria id_categoria) {
 
         int id_produto = getIdProduto();

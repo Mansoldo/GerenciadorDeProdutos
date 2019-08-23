@@ -25,6 +25,7 @@ import java.util.ArrayList;
  */
 public class DAORelacaoProdutoCategoria {
 
+    //Método para obter Conexão
     private static Connection obterConexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -32,6 +33,7 @@ public class DAORelacaoProdutoCategoria {
         return conexao;
     }
 
+    //Método para obter a relação de produtos com categorias
     public static ArrayList<RelacaoProdutoCategoria> getRelacaoProdutoCategoria() {
         ArrayList<RelacaoProdutoCategoria> lista = new ArrayList<>();
         try (Connection conexao = obterConexao()) {
@@ -56,6 +58,7 @@ public class DAORelacaoProdutoCategoria {
         return lista;
     }
 
+    //Método que efetua a exclusão da relação
     public static boolean excluirRelacao(int ID) {
 
         boolean retorno = false;

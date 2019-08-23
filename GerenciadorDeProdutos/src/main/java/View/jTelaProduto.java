@@ -33,6 +33,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         //modificação
     }
 
+    //Método para efetuar limpeza do formulário
     public void limparFormulario() {
         txtNome.setText("");
         txtDescricao.setText("");
@@ -98,6 +99,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         return true;
     }
 
+    //Método para validar quantidades negativas
     private boolean validaNumero() {
         if (Integer.parseInt(txtQuantidade.getText()) < 0) {
             JOptionPane.showMessageDialog(this, "Campo Quantidade não permite valor negativo.");
@@ -163,6 +165,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         return true;
     }
 
+    //Método que valida o status do produto
     public int validacaoStatus() {
 
         if (jComboStatus.getSelectedItem().equals("Ativo")) {
@@ -172,6 +175,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         }
     }
 
+    //Método que cria uma lista para adicionar as Categorias
     public ArrayList<Integer> validacaoCheck() {
 
         ArrayList<Integer> lista = new ArrayList<>();
@@ -544,13 +548,13 @@ public class jTelaProduto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //
     private void jbtnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNovoActionPerformed
         formularioAtivo();
         modoTela = "Salvar";
         limparFormulario();
     }//GEN-LAST:event_jbtnNovoActionPerformed
-
+    //Método para Salvar
     private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
 
         //SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
@@ -558,7 +562,9 @@ public class jTelaProduto extends javax.swing.JFrame {
         java.sql.Date data = new java.sql.Date(calendario.getTime());
         ArrayList<Integer> lista = new ArrayList<>();
 
+        
         if (modoTela.equals("Salvar")) {
+            //Efetua as validações para prosseguir a ação de salvar
             if (validaFormulario() && validaFormato() && validaNumero()) {
                 if (ControllerProduto.salvarProduto(
                         txtNome.getText(),
@@ -570,6 +576,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                         data)) {
                     this.loadTable();
 
+                    //Verifica se há Categoria associada para inserir no banco
                     if (validacaoCheck() != null) {
                         ControllerCategoria.associarCategoria(validacaoCheck());
                     }
@@ -582,6 +589,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Produto não cadastrado!");
                 }
             }
+            //Em caso de Edição, entra nesta condição
         } else if (modoTela.equals("Edicao")) {
             int numlinha = jtableProduto.getSelectedRow();
             Produto id = new Produto();
@@ -607,6 +615,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
+    //Método para Editar ao clicar no botão de Editar
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
         
         limparFormulario();
@@ -614,13 +623,16 @@ public class jTelaProduto extends javax.swing.JFrame {
         modoTela = "Edicao";
         if (jtableProduto.getSelectedRow() != -1) {
             int numlinha = jtableProduto.getSelectedRow();
+            //Instancia um produto e armazena o ID dele efeito de comparação no momento de editar
             Produto id = new Produto();
             id.setIdEditar(Integer.parseInt(jtableProduto.getValueAt(numlinha, 0).toString()));
             int ID = id.getIdEditar();
 
+            //Lista de produtos e dos produtos relacionados com Categoria
             ArrayList<Produto> editarProduto = ControllerProduto.getProdutoList();
             ArrayList<RelacaoProdutoCategoria> Prod_Cate = ControllerRelacaoProdutoCategoria.getRelacao();
 
+            //Laço para popular os dados na tela conforme os registros obtidos em banco
             for (Produto elementos : editarProduto) {
                 if (ID == elementos.getIdProduto()) {
                     txtNome.setText(String.valueOf(elementos.getNome()));
@@ -636,6 +648,7 @@ public class jTelaProduto extends javax.swing.JFrame {
 
                 }
             }
+            //Laço para marcar na tela se há categorias associadas ao produto
             for (RelacaoProdutoCategoria relacao : Prod_Cate) {
                 if (ID == relacao.getIdProduto()) {
                     if (relacao.getIdCategoria() == 1) {
@@ -665,6 +678,7 @@ public class jTelaProduto extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jbtEditarActionPerformed
 
+    //Método para efetuar exclusão do produto ao clicar no botão de Excluir
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
         // TODO add your handling code here:
 
@@ -672,6 +686,7 @@ public class jTelaProduto extends javax.swing.JFrame {
 
             int numeroLinha = jtableProduto.getSelectedRow();
 
+            //Recebe uma lista de Categorias associadas ao produto, e efetua a exclusão dela
             ArrayList<RelacaoProdutoCategoria> listaRelacao = ControllerRelacaoProdutoCategoria.getRelacao();
 
             for (RelacaoProdutoCategoria lista : listaRelacao) {
@@ -681,6 +696,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                 }
             }
 
+            //Após efetuar a exclusão da associação, é excluído o produto
             if (ControllerProduto.ExcluirProduto(Integer.parseInt(jtableProduto.getValueAt(numeroLinha, 0).toString()))) {
                 DefaultTableModel Tabela = (DefaultTableModel) jtableProduto.getModel();
                 Tabela.removeRow(numeroLinha);
@@ -696,7 +712,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jbtExcluirActionPerformed
-
+    //Método do botão para efetuar limpeza da tela
     private void jbtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLimparActionPerformed
         limparFormulario();
     }//GEN-LAST:event_jbtLimparActionPerformed
