@@ -54,7 +54,7 @@ public class jTelaProduto extends javax.swing.JFrame {
         txtCompra.setEnabled(false);
         txtVenda.setEnabled(false);
         txtQuantidade.setEnabled(false);
-         jbtEditar.setEnabled(false);
+        jbtEditar.setEnabled(false);
         jbtSalvar.setEnabled(false);
         jbtLimpar.setEnabled(false);
         jbtExcluir.setEnabled(false);
@@ -67,8 +67,10 @@ public class jTelaProduto extends javax.swing.JFrame {
         txtCompra.setEnabled(true);
         txtVenda.setEnabled(true);
         txtQuantidade.setEnabled(true);
+        jbtEditar.setEnabled(false);
         jbtSalvar.setEnabled(true);
         jbtLimpar.setEnabled(true);
+        jbtExcluir.setEnabled(false);
 
     }
 
