@@ -608,6 +608,7 @@ public class jTelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtSalvarActionPerformed
 
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
+        
         limparFormulario();
         ArrayList<Integer> lista = new ArrayList<>();
         modoTela = "Edicao";

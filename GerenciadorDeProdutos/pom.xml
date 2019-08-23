@@ -13,6 +13,14 @@
         <developer>
             <id>lendary11</id>
             <name>Everton Coutinho</name>
+        </developer>
+        <developer>
+            <id>gabrielribeiroo</id>
+            <name>Gabriel Vital</name>
+        </developer>
+        <developer>
+            <id>mcssantos</id>
+            <name>Micael Santos</name>
         </developer>            
     </developers>
     <properties>
