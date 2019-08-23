@@ -54,10 +54,10 @@ public class jTelaProduto extends javax.swing.JFrame {
         txtCompra.setEnabled(false);
         txtVenda.setEnabled(false);
         txtQuantidade.setEnabled(false);
-        jbtEditar.setEnabled(false);
+         jbtEditar.setEnabled(false);
         jbtSalvar.setEnabled(false);
-        jbtExcluir.setEnabled(false);
         jbtLimpar.setEnabled(false);
+        jbtExcluir.setEnabled(false);
     }
 
     //método que ativa o formulário
@@ -562,7 +562,6 @@ public class jTelaProduto extends javax.swing.JFrame {
         java.sql.Date data = new java.sql.Date(calendario.getTime());
         ArrayList<Integer> lista = new ArrayList<>();
 
-        
         if (modoTela.equals("Salvar")) {
             //Efetua as validações para prosseguir a ação de salvar
             if (validaFormulario() && validaFormato() && validaNumero()) {
@@ -617,11 +616,14 @@ public class jTelaProduto extends javax.swing.JFrame {
 
     //Método para Editar ao clicar no botão de Editar
     private void jbtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditarActionPerformed
-        
+
         limparFormulario();
-        ArrayList<Integer> lista = new ArrayList<>();
-        modoTela = "Edicao";
+
         if (jtableProduto.getSelectedRow() != -1) {
+
+            formularioAtivo();
+            ArrayList<Integer> lista = new ArrayList<>();
+            modoTela = "Edicao";
             int numlinha = jtableProduto.getSelectedRow();
             //Instancia um produto e armazena o ID dele efeito de comparação no momento de editar
             Produto id = new Produto();
@@ -703,6 +705,7 @@ public class jTelaProduto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
                 loadTable();
                 limparFormulario();
+                modoTela = "Salvar";
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi possível excluir!");
             }
